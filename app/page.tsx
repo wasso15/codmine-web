@@ -7,7 +7,6 @@ import Image from "next/image";
 export default function MinistryMinesWebsite() {
   return (
     <div className="min-h-screen bg-gray-50">
-
       {/* Hero Section */}
       <section
         className="relative h-96 bg-cover bg-center"
