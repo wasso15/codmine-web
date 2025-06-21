@@ -25,10 +25,9 @@ export default function RootLayout({
       <body
         className={`${cooperHewitt.variable}  antialiased flex flex-col items-center`}
       >
-        <div className=" w-[90%]">
+        <div className=" w-[90%] lg:w-[75%]">
           <Header />
-
-          {children}
+          <div className=" mt-32">{children}</div>
         </div>
 
         <footer className="bg-blue-600 w-full text-white py-6 mt-12">
