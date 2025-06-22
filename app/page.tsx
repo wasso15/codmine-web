@@ -1,10 +1,29 @@
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import LinkCard from "@/components/LinkCard";
+import MenuCard from "@/components/MenuCard";
+import GridGallery from "@/components/GridGallery";
 
 export default function MinistryMinesWebsite() {
+  const linkData = [
+    { id: "1", title: "Ministère des mines", url: "https://mines.gouv.cd/fr/" },
+    { id: "2", title: "Cami RDC", url: "https://cami.cd/" },
+    {
+      id: "3",
+      title: "Domaine minier concédé",
+      url: "https://drclicences.cami.cd/fr/?_gl=1*1pgaija*_ga*NzkyODYzMzgzLjE3NDk1ODY5MTQ.*_ga_N6W36RJ8TK*czE3NTAxOTMzMTEkbzUkZzEkdDE3NTAxOTM5NDIkajU5JGwwJGgw",
+    },
+    {
+      id: "4",
+      title: "Cartes des titres miniers et des occurences minieres",
+      url: "https://www.arcgis.com/apps/instant/sidebar/index.html?appid=5f33862234ff4d46b238524c095096ac",
+    },
+    { id: "5", title: "CTCPM", url: "https://ctcpm.cd/fr/" },
+    { id: "6", title: "CEEC", url: "https://ceec.cd/" },
+    { id: "7", title: "SAEMAPE", url: "https://saemape.cd/" },
+  ];
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -43,10 +62,10 @@ export default function MinistryMinesWebsite() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-8 h-8" />
               <Input
                 placeholder="Faites une recherche par mot-clé"
-                className="pl-24 bg-black bg-opacity-30  border-transparent text-white placeholder-white"
+                className="pl-24  bg-black bg-opacity-30  border-transparent text-white placeholder-white"
               />
 
-              <Button className="bg-white text-xs text-gray-900 h-full hover:bg-gray-100 px-6">
+              <Button className="bg-white text-xs text-gray-900 h-full hover:bg-gray-100 px-6 rounded-2xl">
                 Rechercher
               </Button>
             </div>
@@ -55,81 +74,16 @@ export default function MinistryMinesWebsite() {
       </section>
 
       {/* Main Content */}
-      <main className="mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="mx-auto sm:px-s6 py-12">
         {/* Useful Links */}
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             Liens utiles
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <Card className="bg-blue-500 text-white">
-              <CardContent className="p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs">⚙</span>
-                </div>
-                <div>
-                  <div className="text-xs">Ministère des mines</div>
-                  <div className="text-xs opacity-80">Site Web</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-red-500 text-white">
-              <CardContent className="p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs">📄</span>
-                </div>
-                <div>
-                  <div className="text-xs">Cami RDC</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-blue-500 text-white">
-              <CardContent className="p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs">⚙</span>
-                </div>
-                <div>
-                  <div className="text-xs">Ministère des mines</div>
-                  <div className="text-xs opacity-80">Site Web</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-red-500 text-white">
-              <CardContent className="p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs">📄</span>
-                </div>
-                <div>
-                  <div className="text-xs">Cami RDC</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-blue-500 text-white">
-              <CardContent className="p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs">⚙</span>
-                </div>
-                <div>
-                  <div className="text-xs">Ministère des mines</div>
-                  <div className="text-xs opacity-80">Site Web</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-red-500 text-white">
-              <CardContent className="p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs">📄</span>
-                </div>
-                <div>
-                  <div className="text-xs">Cami RDC</div>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+            {linkData.map((item) => (
+              <LinkCard key={item.id} item={item} />
+            ))}
           </div>
         </section>
 
@@ -139,31 +93,8 @@ export default function MinistryMinesWebsite() {
             Code et Règlement minier
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-blue-500 text-white">
-              <CardContent className="p-8 flex items-center justify-between">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-2">Code Minier</h3>
-                  <p className="text-blue-100">326 Articles</p>
-                </div>
-                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">⚖</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-red-500 text-white">
-              <CardContent className="p-8 flex items-center justify-between">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-2">
-                    Règlement Minier
-                  </h3>
-                  <p className="text-red-100">527 Articles</p>
-                </div>
-                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">📋</span>
-                </div>
-              </CardContent>
-            </Card>
+            <MenuCard item={{ title: "Code Minier", stats: "326" }} />
+            <MenuCard item={{ title: "Règlement Minier", stats: "527" }} />
           </div>
         </section>
 
@@ -172,79 +103,8 @@ export default function MinistryMinesWebsite() {
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             Images du secteur minier
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="relative h-64 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
-              <Image
-                src="/placeholder.svg?height=256&width=400"
-                alt="Grande mine industrielle de Kamoa"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bottom-4 left-4 text-white z-20">
-                <h3 className="font-semibold">
-                  Grande mine industrielle de Kamoa
-                </h3>
-                <p className="text-sm opacity-80">
-                  La troisième plus grande mine de cuivre au monde...
-                </p>
-              </div>
-            </Card>
-
-            <Card className="relative h-64 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
-              <Image
-                src="/placeholder.svg?height=256&width=400"
-                alt="Ministre Kizito Kapinga Mulume"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bottom-4 left-4 text-white z-20">
-                <h3 className="font-semibold">
-                  Ministre Kizito Kapinga Mulume
-                </h3>
-                <p className="text-sm opacity-80">
-                  Son Excellence politique et Ministre...
-                </p>
-              </div>
-            </Card>
-
-            <Card className="relative h-64 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
-              <Image
-                src="/placeholder.svg?height=256&width=400"
-                alt="DRC AFRICA BATTERY METALS"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bottom-4 left-4 text-white z-20">
-                <h3 className="font-semibold">DRC AFRICA BATTERY METALS</h3>
-                <p className="text-sm opacity-80">
-                  Le premier centre de gouvernance minière...
-                </p>
-              </div>
-            </Card>
-
-            <Card className="relative h-64 overflow-hidden md:col-span-2">
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
-              <Image
-                src="/placeholder.svg?height=256&width=800"
-                alt="Grande mine industrielle de Kamoa"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bottom-4 left-4 text-white z-20">
-                <h3 className="font-semibold">
-                  Grande mine industrielle de Kamoa
-                </h3>
-                <p className="text-sm opacity-80">
-                  La troisième plus grande mine de cuivre au monde, sa démarrage
-                  par son engagement à être parmi les producteurs de cuivre à
-                  faibles coûts au monde.
-                </p>
-              </div>
-            </Card>
-          </div>
+      
+          <GridGallery />
         </section>
       </main>
     </div>

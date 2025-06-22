@@ -25,7 +25,7 @@ function Header() {
   const languages = ["Anglais", "Lingala", "Swahili", "普通话", "عربي"];
 
   return (
-    <header className="bg-[#FEFEFE] h-20 rounded-3xl flex flex-row items-center shadow-lg fixed top-6 w-[90%]  lg:w-[75%] left-1/2 -translate-x-1/2 z-50">
+    <header className="bg-[#FEFEFE] h-20 rounded-3xl flex flex-row items-center shadow-lg fixed top-6 w-[90%]  lg:w-[80%] left-1/2 -translate-x-1/2 z-50">
       <div className=" grow mx-auto px-6 sm:px-6 lg:px-12">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Title */}

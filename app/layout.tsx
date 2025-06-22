@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Globe } from "lucide-react";
 import Header from "@/components/Header";
 
 const cooperHewitt = localFont({
@@ -25,7 +24,7 @@ export default function RootLayout({
       <body
         className={`${cooperHewitt.variable}  antialiased flex flex-col items-center`}
       >
-        <div className=" w-[90%] lg:w-[75%]">
+        <div className=" w-[90%] lg:w-[80%]">
           <Header />
           <div className=" mt-32">{children}</div>
         </div>
