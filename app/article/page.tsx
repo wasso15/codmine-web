@@ -1,135 +1,73 @@
 "use client";
 
 import Hero from "@/components/Hero";
-import Image from "next/image";
-// import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+type ArticleContent = {
+  _id: string;
+  title: { fr: string };
+  texte: { fr: string };
+};
+type Article = {
+  _id: string;
+  number: { fr: string };
+  title: { fr: string };
+  decree: { fr: string };
+  content: ArticleContent[];
+};
 
 export default function ArticlePage() {
-//   const searchParams = useSearchParams();
-//   const id = searchParams.get("id");
-//   const from = searchParams.get("from");
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
+  useEffect(() => {
+    if (!id) return;
+    fetch(`/api/article?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setArticle(data);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Chargement...
+      </div>
+    );
+  }
+  if (!article) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Article non trouvé.
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
       <Hero />
-
-      {/* Main Content */}
-      <main className="mx-auto sm:px-s6">
-        <section className=" flex flex-col gap-4 mt-6">
-          <div
-            className="relative bg-cover bg-center rounded-xl py-2 "
-            style={{
-              backgroundImage: "url(/img/bg.png)",
-            }}
-          >
-            <div className=" w-full flex justify-between items-center px-12">
-              <h1 className="text-white font-light leading-tight">
-                L’Assemblée nationale et le Sénat ont adopté ; Le Président de
-                la République promulgue la Loi dont la teneur suit :
-              </h1>
-              <div className="hidden lg:block">
-                <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
-                  <Image
-                    src={"/img/min-logo.png"}
-                    height={45}
-                    width={45}
-                    alt="Armoirie RDC"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="relative bg-cover bg-center rounded-xl py-2 "
-            style={{
-              backgroundImage: "url(/img/bg2.png)",
-            }}
-          >
-            <div className=" w-full flex justify-between items-center px-12">
-              <h1 className="text-white text-sm font-light leading-tight">
-                Article 1er Les articles 1er, 2, 3, 4, 5, 6, 7 du Chapitre Ier
-                et 16 du Chapitre II du Titre Ier de la loi n°007/2002 du
-                11juillet 2002 portant Code minier sont modifiés comme suit :
-              </h1>
-              <div className="hidden lg:block">
-                <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
-                  <Image
-                    src={"/img/min-logo.png"}
-                    height={45}
-                    width={45}
-                    alt="Armoirie RDC"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="relative bg-cover bg-center rounded-xl py-2 "
-            style={{
-              backgroundImage: "url(/img/bg.png)",
-            }}
-          >
-            <div className=" w-full flex justify-between items-center px-12">
-              <h1 className="text-white font-light leading-tight">
-                « TITRE Ier : DES GENERALITES CHAPITRE Ier : DES DEFINITIONS DES
-                TERMES, DU CHAMP D’APPLICATION ET DES PRINCIPES FONDAMENTAUX
-              </h1>
-              <div className="hidden lg:block">
-                <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
-                  <Image
-                    src={"/img/min-logo.png"}
-                    height={45}
-                    width={45}
-                    alt="Armoirie RDC"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="relative bg-cover bg-center rounded-xl py-2 "
-            style={{
-              backgroundImage: "url(/img/bg.png)",
-            }}
-          >
-            <div className=" w-full flex justify-between items-center px-12">
-              <div>
-                <h1 className="text-white font-light leading-tight">
-                  Article 1 : Des définitions
-                </h1>
-                <p className="text-white text-xs font-light leading-tight">
-                  Aux termes du présent Code, on entend par :
-                </p>
-              </div>
-
-              <div className="hidden lg:block">
-                <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
-                  <Image
-                    src={"/img/min-logo.png"}
-                    height={45}
-                    width={45}
-                    alt="Armoirie RDC"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className=" flex flex-col gap-4 mt-6">
-          <div className="relative  rounded-xl py-4 bg-white  shadow-md">
-            <div className=" w-full flex justify-between  items-center px-12">
-              <h1 className=" text-gray-400 font-light leading-tight">
-                1. acheteur : tout employé agréé d’un comptoir d’achat, d’une
-                entité de traitement d’or, de diamant et d’autres substances
-                minérales d’exploitation artisanale, qui exerce ses activités
-                conformément aux dispositions du présent Code ;
-              </h1>
-            </div>
-          </div>
+      <main className="mx-auto sm:px-s6 py-12">
+        <section>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+            {article.number?.fr} - {article.title?.fr}
+          </h2>
+          <div className="mb-4 text-gray-500 italic">{article.decree?.fr}</div>
+          <ul className="space-y-4">
+            {Array.isArray(article.content) &&
+              article.content.map((item) => (
+                <li key={item._id} className="bg-white rounded shadow p-4">
+                  <h3 className="font-bold text-blue-700 mb-1">
+                    {item.title?.fr}
+                  </h3>
+                  <p className="text-gray-700">{item.texte?.fr}</p>
+                </li>
+              ))}
+          </ul>
         </section>
       </main>
     </div>

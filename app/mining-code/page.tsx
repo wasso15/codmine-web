@@ -2,8 +2,22 @@
 
 import CardArticle from "@/components/CardArticle";
 import Hero from "@/components/Hero";
+import { useEffect, useState } from "react";
 
-export default function MiningCodePage() {
+export default function MinistryMinesWebsite() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/article")
+      .then((res) => res.json())
+      .then((data) => {
+        setArticles(data);
+        setLoading(false);
+      });
+  }, []);
+
+  console.log("articles", articles);
   return (
     <div className="min-h-screen">
       <Hero />
@@ -16,7 +30,9 @@ export default function MiningCodePage() {
             Articles
           </h2>
           <div className=" w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            <CardArticle />
+            {articles.map((article) => (
+              <CardArticle key={article._id} article={article} />
+            ))}
           </div>
         </section>
       </main>

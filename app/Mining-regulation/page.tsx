@@ -3,7 +3,7 @@
 import CardArticle from "@/components/CardArticle";
 import Hero from "@/components/Hero";
 
-export default function MiningRegulationPage() {
+export default function MinistryMinesWebsite() {
   return (
     <div className="min-h-screen">
       <Hero />
