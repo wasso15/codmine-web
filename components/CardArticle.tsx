@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { Article } from "@/types/Article";
 
-function CardArticle({ article }) {
+function CardArticle({ article }: { article: Article }) {
   const pathname = usePathname();
 
   // Pour l'extrait, on prend le premier item du contenu

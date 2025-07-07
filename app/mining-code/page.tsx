@@ -3,13 +3,7 @@
 import CardArticle from "@/components/CardArticle";
 import Hero from "@/components/Hero";
 import { useEffect, useState } from "react";
-
-interface Article {
-  _id: string;
-  // Ajoute ici d'autres propriétés si besoin, par exemple :
-  // title: string;
-  // content: string;
-}
+import { Article } from "@/types/Article";
 
 export default function MinistryMinesWebsite() {
   const [articles, setArticles] = useState<Article[]>([]);
