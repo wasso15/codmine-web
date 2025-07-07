@@ -18,6 +18,7 @@ type Article = {
 };
 
 export default function ArticlePage() {
+
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -29,6 +30,8 @@ export default function ArticlePage() {
       .then((res) => res.json())
       .then((data) => {
         setArticle(data);
+
+        
         setLoading(false);
       });
   }, [id]);
