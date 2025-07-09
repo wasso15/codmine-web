@@ -103,7 +103,7 @@ export default function MinistryMinesWebsite() {
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             Images du secteur minier
           </h2>
-      
+
           <GridGallery />
         </section>
       </main>
