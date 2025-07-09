@@ -4,6 +4,9 @@ import CardArticle from "@/components/CardArticle";
 import Hero from "@/components/Hero";
 import { useEffect, useState } from "react";
 import { Article } from "@/types/Article";
+import { sortArticles } from "@/lib/utils";
+
+// Exemple d'utilisation
 
 export default function MinistryMinesWebsite() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -18,7 +21,8 @@ export default function MinistryMinesWebsite() {
       });
   }, []);
 
-  console.log("articles", articles);
+  const sortedArticles = sortArticles(articles);
+
   return (
     <div className="min-h-screen">
       <Hero />
@@ -36,7 +40,7 @@ export default function MinistryMinesWebsite() {
             </div>
           ) : (
             <div className=" w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {articles.map((article) => (
+              {sortedArticles.map((article) => (
                 <CardArticle key={article._id} article={article} />
               ))}
             </div>
