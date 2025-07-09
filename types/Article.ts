@@ -21,4 +21,5 @@ export interface Article {
   decree: Multilingual;
   content: ArticleContent[];
   isFavorite?: boolean;
+  isAbrogated?: boolean;
 }

@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     "Accédez facilement aux textes légaux miniers officiels de la RDC.",
 };
 
+const anneeActuelle = new Date().getFullYear();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +34,7 @@ export default function RootLayout({
         <footer className="bg-blue-600 w-full text-white py-6 mt-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sm">
-              Ministère des mines © 2024. Tous droits réservés.
+              Ministère des mines © {anneeActuelle}. Tous droits réservés.
             </p>
           </div>
         </footer>
