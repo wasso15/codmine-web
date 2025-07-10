@@ -4,9 +4,12 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/components/LanguageContext";
+import { t } from "@/lib/utils";
 
 function Hero() {
   const pathname = usePathname();
+  const { language } = useLanguage();
 
   return (
     <section
@@ -22,10 +25,11 @@ function Hero() {
         <div className=" w-full flex justify-between items-center">
           <h1 className="text-white text-2xl md:text-4xl font-light leading-tight mb-8">
             {pathname === "/mining-code"
-              ? " Code Minier "
-              : "Règlement Minier "}
-            de la République
-            <br /> Démocratique du Congo <br />
+              ? t("codeMinier", language)
+              : t("reglementMinier", language)}
+            {" de la République"}
+            <br />
+            {"Démocratique du Congo"} <br />
           </h1>
           <div className="hidden lg:block">
             <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center">
@@ -43,12 +47,12 @@ function Hero() {
           <div className="flex-1 flex h-12 rounded-2xl items-center p-1  bg-white/30 relative w-full px-2">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-8 h-8" />
             <Input
-              placeholder="Faites une recherche par mot-clé"
+              placeholder={t("recherchePlaceholder", language)}
               className="pl-24  bg-black bg-opacity-30  border-transparent text-white placeholder-white"
             />
 
             <Button className="bg-white text-xs text-gray-900 h-full hover:bg-gray-100 px-6 rounded-2xl">
-              Rechercher
+              {t("rechercher", language)}
             </Button>
           </div>
         </div>

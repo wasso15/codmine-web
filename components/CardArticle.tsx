@@ -3,9 +3,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { Article } from "@/types/Article";
+import { useLanguage } from "./LanguageContext";
+import { getMultilingualText } from "@/lib/utils";
 
 function CardArticle({ article }: { article: Article }) {
   const pathname = usePathname();
+  const { language } = useLanguage();
 
   // Pour l'extrait, on prend le premier item du contenu
 
@@ -29,7 +32,9 @@ function CardArticle({ article }: { article: Article }) {
             alt="Armoirie RDC"
           />
         </div>
-        <p className="font-bold text-gray-600">{article.number.fr}</p>
+        <p className="font-bold text-gray-600">
+          {getMultilingualText(article.number, language)}
+        </p>
       </div>
     </Link>
   );
