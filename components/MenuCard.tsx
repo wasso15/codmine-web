@@ -15,26 +15,19 @@ const imageList = {
   bg2: "url(/img/bg2.png)",
 };
 
-const iconList = {
-  game: "/img/game.png", // Remplacez par vos chemins d'icônes réels
-  globe: "/img/globe.png",
-};
-
-console.log("Icon", iconList);
-
 function MenuCard({ item }: LinkCardProps) {
-  console.log("item", item);
+  console.log("item ", item);
   return (
     <Link
       href={
-        item.title === "Code Minier" ? "/mining-code" : "/mining-regulation"
+        item.title === "Code minier" ? "/mining-code" : "/mining-regulation"
       }
     >
       <Card
         className="  bg-cover bg-center rounded-3xl px-5"
         style={{
           backgroundImage:
-            item.title === "Code Minier" ? imageList.bg : imageList.bg2,
+            item.title === "Code minier" ? imageList.bg : imageList.bg2,
         }}
       >
         <CardContent className="p-8 flex items-center justify-between">

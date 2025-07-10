@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
+import { LanguageProvider } from "@/components/LanguageContext";
+import Footer from "@/components/Footer";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 const cooperHewitt = localFont({
   src: "../public/fonts/CooperHewitt-Book.otf",
@@ -26,18 +29,15 @@ export default function RootLayout({
       <body
         className={`${cooperHewitt.variable}  antialiased flex flex-col items-center`}
       >
-        <div className=" w-[90%] lg:w-[80%]">
-          <Header />
-          <div className=" mt-32">{children}</div>
-        </div>
-
-        <footer className="bg-blue-600 w-full text-white py-6 mt-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm">
-              Ministère des mines © {anneeActuelle}. Tous droits réservés.
-            </p>
-          </div>
-        </footer>
+        <ReactQueryProvider>
+          <LanguageProvider>
+            <div className=" w-[90%] lg:w-[80%]">
+              <Header />
+              <div className=" mt-32">{children}</div>
+            </div>
+          </LanguageProvider>
+          <Footer year={anneeActuelle} />
+        </ReactQueryProvider>
       </body>
     </html>
   );

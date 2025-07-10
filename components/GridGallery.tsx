@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/components/LanguageContext";
+import { t } from "@/lib/utils";
 
 const GalleryCard = ({
   className,
@@ -45,34 +47,31 @@ const GalleryCard = ({
 };
 
 const GridGallery = () => {
+  const { language } = useLanguage();
   const items = [
     {
       className: "lg:col-span-2 lg:row-span-2",
       imgSrc: "/img/mine1.jpg",
-      title: "Grande mini industrielle de Kamoa",
-      subtitle:
-        "la troisième plus grande mine de cuivre au monde, se distingue par son engagement à être parmi les producteurs de cuivre à faibles",
+      title: t("galleryMineKamoaTitle", language),
+      subtitle: t("galleryMineKamoaSubtitle", language),
     },
     {
       className: "lg:col-span-2",
       imgSrc: "/img/kizito.jpg",
-      title: "Ministre Kizito Kapinga Mulume",
-      subtitle:
-        "est un homme politique de la république démocratique du Congo. Il est ministre chargé des mines du gouvernement Suminwa depuis le 29 mai (2024)",
+      title: t("galleryKizitoTitle", language),
+      subtitle: t("galleryKizitoSubtitle", language),
     },
     {
       className: "lg:col-span-2",
       imgSrc: "/img/cobalt.jpg",
-      title: "DRC - AFRICA BATTERY METALS",
-      subtitle:
-        "est un homme politique de la république démocratique du Congo. Il est ministre chargé des mines du gouvernement Suminwa depuis le 29 mai (2024)",
+      title: t("galleryCobaltTitle", language),
+      subtitle: t("galleryCobaltSubtitle", language),
     },
     {
       className: "lg:col-span-4",
       imgSrc: "/img/mine.jpg",
-      title: "Grande mini industrielle de Kamoa",
-      subtitle:
-        "la troisième plus grande mine de cuivre au monde, se distingue par son engagement à être parmi les producteurs de cuivre à faibles",
+      title: t("galleryMineKamoaTitle", language),
+      subtitle: t("galleryMineKamoaSubtitle", language),
     },
   ];
 

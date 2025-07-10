@@ -1,3 +1,5 @@
+"use client";
+
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,8 +7,11 @@ import Image from "next/image";
 import LinkCard from "@/components/LinkCard";
 import MenuCard from "@/components/MenuCard";
 import GridGallery from "@/components/GridGallery";
+import { useLanguage } from "@/components/LanguageContext";
+import { t } from "@/lib/utils";
 
 export default function MinistryMinesWebsite() {
+  const { language } = useLanguage();
   const linkData = [
     { id: "1", title: "Ministère des mines", url: "https://mines.gouv.cd/fr/" },
     { id: "2", title: "Cami RDC", url: "https://cami.cd/" },
@@ -35,15 +40,16 @@ export default function MinistryMinesWebsite() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center">
           <div className=" w-full flex justify-between items-center">
             <h1 className="text-white text-2xl md:text-4xl font-light leading-tight mb-8">
-              Accédez facilement aux textes
+              {/* Texte principal à traduire, à découper en plusieurs clés si besoin */}
+              {t("heroLigne1", language)}
               <br />
-              légaux miniers officiels de la RDC.
+              {t("heroLigne2", language)}
               <br />
-              Naviguez, téléchargez, ou
+              {t("heroLigne3", language)}
               <br />
-              explorez les articles et
+              {t("heroLigne4", language)}
               <br />
-              amendements.
+              {t("heroLigne5", language)}
             </h1>
             <div className="hidden lg:block">
               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
@@ -61,12 +67,12 @@ export default function MinistryMinesWebsite() {
             <div className="flex-1 flex h-12 rounded-2xl items-center p-1  bg-white/30 relative w-full px-2">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-8 h-8" />
               <Input
-                placeholder="Faites une recherche par mot-clé"
+                placeholder={t("recherchePlaceholder", language)}
                 className="pl-24  bg-black bg-opacity-30  border-transparent text-white placeholder-white"
               />
 
               <Button className="bg-white text-xs text-gray-900 h-full hover:bg-gray-100 px-6 rounded-2xl">
-                Rechercher
+                {t("rechercher", language)}
               </Button>
             </div>
           </div>
@@ -78,7 +84,7 @@ export default function MinistryMinesWebsite() {
         {/* Useful Links */}
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            Liens utiles
+            {t("liensUtiles", language)}
           </h2>
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {linkData.map((item) => (
@@ -90,18 +96,22 @@ export default function MinistryMinesWebsite() {
         {/* Code et Règlement minier */}
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            Code et Règlement minier
+            {t("codeEtReglement", language)}
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <MenuCard item={{ title: "Code Minier", stats: "326" }} />
-            <MenuCard item={{ title: "Règlement Minier", stats: "527" }} />
+            <MenuCard
+              item={{ title: t("codeMinier", language), stats: "326" }}
+            />
+            <MenuCard
+              item={{ title: t("reglementMinier", language), stats: "527" }}
+            />
           </div>
         </section>
 
         {/* Images du secteur minier */}
         <section>
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            Images du secteur minier
+            {t("imagesSecteur", language)}
           </h2>
 
           <GridGallery />

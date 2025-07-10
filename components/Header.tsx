@@ -3,26 +3,36 @@ import { usePathname } from "next/navigation";
 import { Languages } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { t } from "@/lib/utils";
+import { LanguageCode, useLanguage } from "./LanguageContext";
 
 function Header() {
   const pathname = usePathname();
-  const [selectedLanguage, setSelectedLanguage] = useState("Français");
+  const { language, setLanguage } = useLanguage();
 
   const navLinks = [
-    { href: "/", label: "Accueil" },
-    { href: "/mining-code", label: "Code minier" },
-    { href: "/mining-regulation", label: "Règlement minier" },
+    { href: "/", labelKey: "accueil" },
+    { href: "/mining-code", labelKey: "codeMinier" },
+    { href: "/mining-regulation", labelKey: "reglementMinier" },
   ];
 
-  const languages = ["Anglais", "Lingala", "Swahili", "普通话", "عربي"];
+  // Map code langue -> label
+  const languageLabels: Record<LanguageCode, string> = {
+    fr: "Français",
+    en: "Anglais",
+    ln: "Lingala",
+    sw: "Swahili",
+    zh: "普通话",
+    ar: "عربي",
+  };
+  const languages = Object.keys(languageLabels) as LanguageCode[];
 
   return (
     <header className="bg-[#FEFEFE] h-20 rounded-3xl flex flex-row items-center shadow-lg fixed top-6 w-[90%]  lg:w-[80%] left-1/2 -translate-x-1/2 z-50">
@@ -52,34 +62,28 @@ function Header() {
                     : "text-gray-600 hover:text-gray-900 pb-1  text-sm font-medium"
                 }
               >
-                {link.label}
+                {t(link.labelKey, language)}
               </Link>
             ))}
           </nav>
-
           {/* Language Selector */}
           <div className="flex items-center space-x-2 text-sm">
             <DropdownMenu>
               <DropdownMenuTrigger className=" flex flex-row space-x-2">
                 <Languages className="w-5 h-5" />
-                <span>{selectedLanguage}</span>
+                <span>{languageLabels[language]}</span>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className=" p-6 border-b-0">
-                <DropdownMenuLabel className="border-b-0">
-                  Veuillez Séléctionner la langue
-                </DropdownMenuLabel>
-                {languages.map((language) => (
+                {languages.map((lang) => (
                   <DropdownMenuItem
-                    key={language}
-                    onSelect={() => setSelectedLanguage(language)}
+                    key={lang}
+                    onSelect={() => setLanguage(lang)}
                     className={
-                      selectedLanguage === language
-                        ? "bg-[#D02335] text-amber-50"
-                        : ""
+                      language === lang ? "bg-[#D02335] text-amber-50" : ""
                     }
                   >
-                    {language}
+                    {languageLabels[lang]}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
