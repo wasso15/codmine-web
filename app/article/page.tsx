@@ -12,17 +12,28 @@ function ArticlePageContent() {
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const from = searchParams.get("from") || "";
+  const isRule = from.toLowerCase().includes("regulation");
+  const apiUrl = isRule ? `/api/rules?id=${id}` : `/api/article?id=${id}`;
   const { language } = useLanguage();
 
   useEffect(() => {
     if (!id) return;
-    fetch(`/api/article?id=${id}`)
-      .then((res) => res.json())
+    fetch(apiUrl)
+      .then((res) => {
+        if (!res.ok) throw new Error("Not found");
+        return res.json();
+      })
       .then((data) => {
         setArticle(data);
+        console.log("Data", data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setArticle(null);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, from]);
 
   if (loading) {
     return (
