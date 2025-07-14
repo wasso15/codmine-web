@@ -20,6 +20,7 @@ export default function MinistryMinesWebsite() {
       .then((res) => res.json())
       .then((data) => {
         setRules(data);
+        console.log("Data", data);
         setLoading(false);
       });
   }, []);
@@ -29,13 +30,12 @@ export default function MinistryMinesWebsite() {
   return (
     <div className="min-h-screen">
       <Hero />
-
       {/* Main Content */}
       <main className="mx-auto sm:px-s6 py-12">
         {/* Images du secteur minier */}
         <section>
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            {t("reglements", language)}
+            {t("reglementMinier", language)}
           </h2>
           {loading ? (
             <div className="w-full flex justify-center items-center py-12">

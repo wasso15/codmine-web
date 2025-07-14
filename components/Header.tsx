@@ -20,7 +20,7 @@ function Header() {
   const navLinks = [
     { href: "/", labelKey: "accueil" },
     { href: "/mining-code", labelKey: "codeMinier" },
-    { href: "/mining-regulation", labelKey: "reglementMinier" },
+    { href: "/Mining-regulation", labelKey: "reglementMinier" },
   ];
 
   // Map code langue -> label

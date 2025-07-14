@@ -20,7 +20,7 @@ function MenuCard({ item }: LinkCardProps) {
   return (
     <Link
       href={
-        item.title === "Code minier" ? "/mining-code" : "/mining-regulation"
+        item.title === "Code minier" ? "/mining-code" : "/Mining-regulation"
       }
     >
       <Card

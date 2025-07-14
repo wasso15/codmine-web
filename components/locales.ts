@@ -18,6 +18,7 @@ export const locales = {
     heroLigne4: "explorez les articles et",
     heroLigne5: "amendements.",
     ministereDesMines: "Ministère des mines",
+    reglements:"Règlement minier",
     // Ajoute d'autres clés au besoin
     galleryMineKamoaTitle: "Grande mine industrielle de Kamoa",
     galleryMineKamoaSubtitle:
@@ -34,6 +35,8 @@ export const locales = {
     codeMinier: "Mining Code",
     reglementMinier: "Mining Regulation",
     articles: "Articles",
+    reglements:"Mining Regulation",
+
     chargement: "Loading...",
     liensUtiles: "Useful links",
     codeEtReglement: "Mining Code and Regulation",
