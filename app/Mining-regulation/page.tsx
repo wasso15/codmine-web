@@ -3,7 +3,7 @@
 import CardArticle from "@/components/CardArticle";
 import Hero from "@/components/Hero";
 import { useEffect, useState } from "react";
-import { Article } from "@/types/Article";
+import { Rule } from "@/types/Rule";
 import { sortArticles } from "@/lib/utils";
 import { useLanguage } from "@/components/LanguageContext";
 import { t } from "@/lib/utils";
@@ -11,20 +11,20 @@ import { t } from "@/lib/utils";
 // Exemple d'utilisation
 
 export default function MinistryMinesWebsite() {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [rules, setRules] = useState<Rule[]>([]);
   const [loading, setLoading] = useState(true);
   const { language } = useLanguage();
 
   useEffect(() => {
-    fetch("/api/article")
+    fetch("/api/rules")
       .then((res) => res.json())
       .then((data) => {
-        setArticles(data);
+        setRules(data);
         setLoading(false);
       });
   }, []);
 
-  const sortedArticles = sortArticles(articles);
+  const sortedRules = sortArticles(rules);
 
   return (
     <div className="min-h-screen">
@@ -35,7 +35,7 @@ export default function MinistryMinesWebsite() {
         {/* Images du secteur minier */}
         <section>
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            {t("articles", language)}
+            {t("reglements", language)}
           </h2>
           {loading ? (
             <div className="w-full flex justify-center items-center py-12">
@@ -45,8 +45,8 @@ export default function MinistryMinesWebsite() {
             </div>
           ) : (
             <div className=" w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {sortedArticles.map((article) => (
-                <CardArticle key={article._id} article={article} />
+              {sortedRules.map((rule) => (
+                <CardArticle key={rule._id} article={rule} />
               ))}
             </div>
           )}
