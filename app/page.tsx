@@ -9,9 +9,18 @@ import MenuCard from "@/components/MenuCard";
 import GridGallery from "@/components/GridGallery";
 import { useLanguage } from "@/components/LanguageContext";
 import { t } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { getMultilingualText } from "@/lib/utils";
+import type { Article } from "@/types/Article";
 
 export default function MinistryMinesWebsite() {
   const { language } = useLanguage();
+  const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState<Article[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const router = useRouter();
+  const inputRef = useRef(null);
   const linkData = [
     { id: "1", title: "Ministère des mines", url: "https://mines.gouv.cd/fr/" },
     { id: "2", title: "Cami RDC", url: "https://cami.cd/" },
@@ -29,6 +38,28 @@ export default function MinistryMinesWebsite() {
     { id: "6", title: "CEEC", url: "https://ceec.cd/" },
     { id: "7", title: "SAEMAPE", url: "https://saemape.cd/" },
   ];
+
+  useEffect(() => {
+    if (search.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      fetch(`/api/search-articles?query=${encodeURIComponent(search)}`)
+        .then((res) => res.json())
+        .then((data) => setSuggestions(data));
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [search]);
+
+  const handleSuggestionClick = (article: Article) => {
+    setShowSuggestions(false);
+    setSearch("");
+    router.push(`/article?id=${article._id}`);
+  };
+
+  console.log("Suggestion", suggestions)
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -63,17 +94,50 @@ export default function MinistryMinesWebsite() {
             </div>
           </div>
           {/* Search Bar */}
-          <div className="flex items-center space-x-4 w-full ">
+          <div className="flex items-center space-x-4 w-full relative">
             <div className="flex-1 flex h-12 rounded-2xl items-center p-1  bg-white/30 relative w-full px-2">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-8 h-8" />
               <Input
+                ref={inputRef}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                onFocus={() => setShowSuggestions(true)}
                 placeholder={t("recherchePlaceholder", language)}
-                className="pl-24  bg-black bg-opacity-30  border-transparent text-white placeholder-white"
+                className=" pl-10 md:pl-24  bg-black bg-opacity-30  border-transparent text-white placeholder-white"
               />
 
-              <Button className="bg-white text-xs text-gray-900 h-full hover:bg-gray-100 px-6 rounded-2xl">
+              <Button
+                className="bg-white text-xs text-gray-900 h-full hover:bg-gray-100 px-6 rounded-2xl"
+                onClick={() => {
+                  if (suggestions.length > 0) {
+                    handleSuggestionClick(suggestions[0]);
+                  }
+                }}
+              >
                 {t("rechercher", language)}
               </Button>
+              {showSuggestions && suggestions.length > 0 && (
+                <ul className="absolute top-14 left-0 w-full bg-white rounded shadow-lg z-10 max-h-60 overflow-y-auto">
+                  {suggestions.map((article) => (
+                    <li
+                      key={article._id}
+                      className="p-3 hover:bg-gray-100 cursor-pointer"
+                      onMouseDown={() => handleSuggestionClick(article)}
+                    >
+                      <span className="font-semibold">
+                        {getMultilingualText(article.title, language)}
+                      </span>
+                      <span className="ml-2 text-xs text-gray-500">
+                        {getMultilingualText(article.decree, language)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
