@@ -3,7 +3,6 @@ import React from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useLanguage } from "@/components/LanguageContext";
 import { t } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -11,8 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { getMultilingualText } from "@/lib/utils";
 import type { Article } from "@/types/Article";
 
-function Hero() {
-  const pathname = usePathname();
+function Hero({ isRule = false }: { isRule?: boolean }) {
   const { language } = useLanguage();
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState<Article[]>([]);
@@ -43,18 +41,15 @@ function Hero() {
     <section
       className="relative h-[400px] bg-cover bg-center rounded-3xl"
       style={{
-        backgroundImage:
-          pathname === "/mining-code"
-            ? "url(/img/bg.png)"
-            : "url(/img/bg2.png)",
+        backgroundImage: isRule ? "url(/img/bg2.png)" : "url(/img/bg.png)",
       }}
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center">
         <div className=" w-full flex justify-between items-center">
           <h1 className="text-white text-2xl md:text-4xl font-light leading-tight mb-8">
-            {pathname === "/mining-code"
-              ? t("codeMinier", language)
-              : t("reglementMinier", language)}
+            {isRule
+              ? t("reglementMinier", language)
+              : t("codeMinier", language)}
             {" de la République"}
             <br />
             {"Démocratique du Congo"} <br />

@@ -7,15 +7,12 @@ import { Article } from "@/types/Article";
 import { useLanguage } from "@/components/LanguageContext";
 import { getMultilingualText, t } from "@/lib/utils";
 
-function ArticlePageContent() {
+// --- Composant 1 : contenu article
+function ArticlePageContent({ id, isRule }: { id: string; isRule: boolean }) {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
-  const from = searchParams.get("from") || "";
-  const isRule = from.toLowerCase().includes("regulation");
-  const apiUrl = isRule ? `/api/rules?id=${id}` : `/api/article?id=${id}`;
   const { language } = useLanguage();
+  const apiUrl = isRule ? `/api/rules?id=${id}` : `/api/article?id=${id}`;
 
   useEffect(() => {
     if (!id) return;
@@ -26,14 +23,13 @@ function ArticlePageContent() {
       })
       .then((data) => {
         setArticle(data);
-        console.log("Data", data);
         setLoading(false);
       })
       .catch(() => {
         setArticle(null);
         setLoading(false);
       });
-  }, [id, from]);
+  }, [id, apiUrl]);
 
   if (loading) {
     return (
@@ -42,6 +38,7 @@ function ArticlePageContent() {
       </div>
     );
   }
+
   if (!article) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -83,13 +80,31 @@ function ArticlePageContent() {
   );
 }
 
+// --- Composant 2 : logique côté client avec useSearchParams
+function ArticlePageInner() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const from = searchParams.get("from") || "";
+  const isRule = from.toLowerCase().includes("regulation");
+
+  if (!id) return null;
+
+  return (
+    <>
+      <Hero isRule={isRule} />
+      <ArticlePageContent id={id} isRule={isRule} />
+    </>
+  );
+}
+
+// --- Page principale
 export default function ArticlePage() {
   const { language } = useLanguage();
+
   return (
     <div className="min-h-screen">
-      <Hero />
       <Suspense fallback={<div>{t("chargement", language)}</div>}>
-        <ArticlePageContent />
+        <ArticlePageInner />
       </Suspense>
     </div>
   );
