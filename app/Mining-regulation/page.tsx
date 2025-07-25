@@ -29,7 +29,7 @@ export default function MinistryMinesWebsite() {
 
   return (
     <div className="min-h-screen">
-      <Hero />
+      <Hero isRule={true} />
       {/* Main Content */}
       <main className="mx-auto sm:px-s6 py-12">
         {/* Images du secteur minier */}

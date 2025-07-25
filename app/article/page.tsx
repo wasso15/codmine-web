@@ -85,9 +85,14 @@ function ArticlePageContent() {
 
 export default function ArticlePage() {
   const { language } = useLanguage();
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from") || "";
+  const isRule = from.toLowerCase().includes("regulation");
+
+  console.log("IsRule", isRule);
   return (
     <div className="min-h-screen">
-      <Hero />
+      <Hero isRule={isRule} />
       <Suspense fallback={<div>{t("chargement", language)}</div>}>
         <ArticlePageContent />
       </Suspense>

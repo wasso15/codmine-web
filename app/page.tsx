@@ -22,21 +22,25 @@ export default function MinistryMinesWebsite() {
   const router = useRouter();
   const inputRef = useRef(null);
   const linkData = [
-    { id: "1", title: "Ministère des mines", url: "https://mines.gouv.cd/fr/" },
-    { id: "2", title: "Cami RDC", url: "https://cami.cd/" },
+    {
+      id: "1",
+      title: t("ministereMines", language),
+      url: "https://mines.gouv.cd/fr/",
+    },
+    { id: "2", title: t("camiRDC", language), url: "https://cami.cd/" },
     {
       id: "3",
-      title: "Domaine minier concédé",
+      title: t("domaineMinierConcede", language),
       url: "https://drclicences.cami.cd/fr/?_gl=1*1pgaija*_ga*NzkyODYzMzgzLjE3NDk1ODY5MTQ.*_ga_N6W36RJ8TK*czE3NTAxOTMzMTEkbzUkZzEkdDE3NTAxOTM5NDIkajU5JGwwJGgw",
     },
     {
       id: "4",
-      title: "Cartes des titres miniers et des occurences minieres",
+      title: t("cartesTitresMinieres", language),
       url: "https://www.arcgis.com/apps/instant/sidebar/index.html?appid=5f33862234ff4d46b238524c095096ac",
     },
-    { id: "5", title: "CTCPM", url: "https://ctcpm.cd/fr/" },
-    { id: "6", title: "CEEC", url: "https://ceec.cd/" },
-    { id: "7", title: "SAEMAPE", url: "https://saemape.cd/" },
+    { id: "5", title: t("ctcpm", language), url: "https://ctcpm.cd/fr/" },
+    { id: "6", title: t("ceec", language), url: "https://ceec.cd/" },
+    { id: "7", title: t("saemape", language), url: "https://saemape.cd/" },
   ];
 
   useEffect(() => {
@@ -58,7 +62,7 @@ export default function MinistryMinesWebsite() {
     router.push(`/article?id=${article._id}`);
   };
 
-  console.log("Suggestion", suggestions)
+  console.log("Suggestion", suggestions);
 
   return (
     <div className="min-h-screen">
